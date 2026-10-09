@@ -1,153 +1,161 @@
-import { useState, useEffect, useRef } from "react";
-import { 
-  SiReact, SiTypescript, SiTailwindcss, SiNodedotjs, 
-  SiExpress, SiPostgresql, SiMongodb, SiDocker, SiGit, SiLinux 
+import { useState, useRef } from "react";
+import {
+  SiJavascript,
+  SiReact,
+  SiTailwindcss,
+  SiNodedotjs,
+  SiExpress,
+  SiPostgresql,
+  SiDocker,
+  SiGit,
+  SiLinux,
+  SiFigma,
 } from "react-icons/si";
-import { GiButterfly, GiFlowerEmblem } from "react-icons/gi";
-import { FiTerminal, FiCpu, FiServer, FiDatabase, FiLayers, FiActivity, FiArrowRight } from "react-icons/fi";
+import {
+  FiTerminal,
+  FiCpu,
+  FiServer,
+  FiDatabase,
+  FiLayers,
+  FiActivity,
+  FiArrowRight,
+  FiCheckCircle,
+} from "react-icons/fi";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-function Skills() {
+export default function Skills() {
   const sectionRef = useRef(null);
   const [activeLayer, setActiveLayer] = useState("frontend");
 
   const architectureData = {
     frontend: {
       title: "01 / CLIENT TIER",
-      subtitle: "UI & Reactive Engine",
-      icon: <FiCpu className="text-purple-600" size={20} />,
-      accentColor: "#9333ea",
-      description: "Crafting high-performance client interfaces using component-driven state architecture, responsive styling engines, and hardware-accelerated animations.",
+      subtitle: "UI, Graphics & Animation Engine",
+      icon: <FiCpu className="text-indigo-400" size={20} />,
+      description:
+        "Building interactive user interfaces using modern JavaScript (ES6+), component-driven React architecture, Tailwind CSS styling, Three.js WebGL graphics, and hardware-accelerated GSAP scroll timelines.",
       skills: [
-        { name: "React / Next.js", role: "Component Architecture", icon: <SiReact className="text-[#0088CC]" /> },
-        { name: "TypeScript", role: "Type Safety & Contracts", icon: <SiTypescript className="text-[#3178C6]" /> },
-        { name: "Tailwind CSS", role: "Utility Design System", icon: <SiTailwindcss className="text-[#06B6D4]" /> },
-        { name: "GSAP Motion", role: "Timeline & Scroll Engine", icon: <GiButterfly className="text-purple-600" /> },
+        { name: "React.js", role: "Component State & UI Architecture", icon: <SiReact className="text-[#61DAFB]" /> },
+        { name: "JavaScript (ES6+)", role: "Async Workflows & Logic", icon: <SiJavascript className="text-[#F7DF1E]" /> },
+        { name: "Tailwind CSS", role: "Responsive Design System", icon: <SiTailwindcss className="text-[#06B6D4]" /> },
+        { name: "Three.js & GSAP", role: "3D Graphics & Micro-Animations", icon: <FiActivity className="text-pink-400" /> },
       ],
       terminalLogs: [
-        "GET /api/v1/user-session 200 OK - 24ms",
-        "React Hydration Complete - Virtual DOM synchronized",
-        "GSAP ScrollTrigger context initialized successfully",
+        "GET /api/v1/projects 200 OK - 18ms",
+        "React Virtual DOM synchronized successfully",
+        "GSAP ScrollTrigger context mounted",
+        "Three.js particle canvas rendering at 60 FPS",
       ],
     },
     backend: {
       title: "02 / API & SERVER TIER",
-      subtitle: "RESTful Gateway & Runtime",
-      icon: <FiServer className="text-pink-600" size={20} />,
-      accentColor: "#db2777",
-      description: "Designing non-blocking, scalable Node.js micro-services and Express middleware capable of handling asynchronous requests and secure authentication flow.",
+      subtitle: "RESTful Server & Middleware",
+      icon: <FiServer className="text-pink-400" size={20} />,
+      description:
+        "Designing asynchronous Node.js backend servers and Express.js REST API routes with clean CRUD controllers, JSON file persistence, and robust request handling.",
       skills: [
-        { name: "Node.js", role: "V8 Async Engine", icon: <SiNodedotjs className="text-[#339933]" /> },
-        { name: "Express.js", role: "Middleware & Routing", icon: <SiExpress className="text-slate-800" /> },
-        { name: "JWT & Auth", role: "Security & Encryption", icon: <FiActivity className="text-pink-600" /> },
-        { name: "REST APIs", role: "Endpoint Contracts", icon: <FiTerminal className="text-purple-600" /> },
+        { name: "Node.js", role: "Asynchronous V8 Runtime", icon: <SiNodedotjs className="text-[#339933]" /> },
+        { name: "Express.js", role: "REST API Routes & Middleware", icon: <SiExpress className="text-slate-200" /> },
+        { name: "RESTful APIs", role: "JSON Endpoint Contracts", icon: <FiTerminal className="text-indigo-400" /> },
+        { name: "ES Modules & CJS", role: "Module Architecture", icon: <FiLayers className="text-purple-400" /> },
       ],
       terminalLogs: [
-        "POST /api/v1/auth/verify - Token validated",
-        "Express middleware executed in 2.1ms",
-        "Database pool connection acquired: active_clients=8",
+        "POST /api/v1/contact - Message payload received",
+        "Express middleware execution time: 1.8ms",
+        "JSON data file successfully updated",
       ],
     },
     database: {
       title: "03 / PERSISTENCE TIER",
-      subtitle: "Relational & Document Stores",
-      icon: <FiDatabase className="text-indigo-600" size={20} />,
-      accentColor: "#4f46e5",
-      description: "Modeling structured schemas, optimizing complex SQL queries, and utilizing NoSQL document stores for rapid data retrieval and reliable persistence.",
+      subtitle: "Relational Database Engine",
+      icon: <FiDatabase className="text-purple-400" size={20} />,
+      description:
+        "Structuring relational data models, writing optimized SQL queries, and executing secure CRUD operations using PostgreSQL.",
       skills: [
-        { name: "PostgreSQL", role: "Relational & ACID Compliant", icon: <SiPostgresql className="text-[#4169E1]" /> },
-        { name: "MongoDB", role: "Document Aggregation", icon: <SiMongodb className="text-[#47A248]" /> },
-        { name: "SQL Indexing", role: "Query Optimization", icon: <FiDatabase className="text-indigo-600" /> },
+        { name: "PostgreSQL", role: "Relational SQL Database", icon: <SiPostgresql className="text-[#4169E1]" /> },
+        { name: "SQL Queries", role: "Relational Schema Design", icon: <FiDatabase className="text-purple-400" /> },
+        { name: "JSON Data Persistence", role: "Local File System CRUD", icon: <FiTerminal className="text-indigo-400" /> },
       ],
       terminalLogs: [
-        "SELECT * FROM users WHERE status = 'active';",
-        "PostgreSQL Query Executed - 0.8ms [Index Scan]",
-        "ACID Transaction committed successfully",
+        "SELECT * FROM projects ORDER BY created_at DESC;",
+        "PostgreSQL Query Executed - 0.6ms",
+        "Connection pool active: 5 client connections",
       ],
     },
-    devops: {
+    infrastructure: {
       title: "04 / INFRASTRUCTURE TIER",
-      subtitle: "Deployment & Environment",
-      icon: <FiLayers className="text-purple-600" size={20} />,
-      accentColor: "#9333ea",
-      description: "Encapsulating application runtimes in isolated containers, managing Unix environment settings, and automating versioning through Git workflows.",
+      subtitle: "Containers, Environment & Tooling",
+      icon: <FiLayers className="text-indigo-400" size={20} />,
+      description:
+        "Containerizing application environments with Docker, managing Linux shell executions, tracking changes via Git, and prototyping UI interfaces in Figma.",
       skills: [
-        { name: "Docker", role: "Containerization", icon: <SiDocker className="text-[#2496ED]" /> },
+        { name: "Docker", role: "Containerization & Runtime Isolation", icon: <SiDocker className="text-[#2496ED]" /> },
         { name: "Git & GitHub", role: "Version Control Systems", icon: <SiGit className="text-[#F05032]" /> },
-        { name: "Linux / Bash", role: "Kernel & Shell Scripts", icon: <SiLinux className="text-[#D97706]" /> },
+        { name: "Linux / Bash", role: "Terminal & Shell Execution", icon: <SiLinux className="text-[#FCC624]" /> },
+        { name: "Figma", role: "UI Prototyping & Layouts", icon: <SiFigma className="text-[#F24E1E]" /> },
       ],
       terminalLogs: [
-        "docker-compose up -d --build --remove-orphans",
-        "Container [api_gateway] initialized on port 5000",
+        "docker-compose up -d --build",
+        "Container [pern_app] running on port 5000",
         "Git commit verified: release production v1.4.0",
       ],
     },
   };
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 100);
+  useGSAP(
+    () => {
+      gsap.set(".arch-card", { opacity: 0, y: 30 });
 
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        ".arch-card",
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          stagger: 0.15,
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 80%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
-    }, sectionRef);
-
-    return () => {
-      clearTimeout(timer);
-      ctx.revert();
-    };
-  }, []);
+      gsap.to(".arch-card", {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.12,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+          toggleActions: "play none none none",
+        },
+      });
+    },
+    { scope: sectionRef }
+  );
 
   return (
     <section
       ref={sectionRef}
       id="skills"
-      className="relative min-h-screen w-full overflow-hidden bg-[#faf8fc] py-28 md:py-36 flex items-center justify-center font-sans text-slate-800"
+      className="relative min-h-screen w-full overflow-hidden bg-slate-950 py-28 md:py-36 flex items-center justify-center font-sans text-slate-200"
     >
-      {/* BACKGROUND ATMOSPHERIC GLOWS */}
-      <div className="absolute top-1/4 left-[-10%] w-[550px] h-[550px] bg-purple-200/50 rounded-full blur-[160px] pointer-events-none" />
-      <div className="absolute bottom-10 right-[-10%] w-[550px] h-[550px] bg-pink-200/50 rounded-full blur-[160px] pointer-events-none" />
-
-      {/* FLOATING MOTIF ACCENTS */}
-      <div className="absolute top-16 right-16 text-purple-300/40 text-6xl pointer-events-none animate-pulse">
-        <GiButterfly />
-      </div>
-      <div className="absolute bottom-16 left-12 text-pink-300/40 text-6xl pointer-events-none">
-        <GiFlowerEmblem />
-      </div>
+      {/* ATMOSPHERIC AMBIENT GLOWS */}
+      <div className="absolute top-1/4 left-[-10%] w-[550px] h-[550px] bg-indigo-600/15 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-10 right-[-10%] w-[550px] h-[550px] bg-pink-600/15 rounded-full blur-[150px] pointer-events-none" />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full z-10 space-y-12">
-        
         {/* HEADER */}
         <div className="text-center max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 rounded-full border border-purple-200/80 bg-white/80 px-4 py-1.5 text-xs font-semibold tracking-widest uppercase text-purple-700 backdrop-blur-xl mb-4 shadow-sm">
-            <GiButterfly className="text-purple-500" size={16} />
-            <span>FULL-STACK ARCHITECTURE</span>
+          <div className="inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-1.5 text-xs font-semibold tracking-widest uppercase text-indigo-300 backdrop-blur-xl mb-4 shadow-sm">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500" />
+            </span>
+            <span>PERN & DevOps Architecture</span>
           </div>
 
-          <h2 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4">
-            System <span className="bg-gradient-to-r from-purple-600 via-pink-500 to-rose-500 bg-clip-text text-transparent">Diagram</span> & Stack Spectrum
+          <h2 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight mb-4">
+            System{" "}
+            <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+              Diagram
+            </span>{" "}
+            & Technical Spectrum
           </h2>
-          <p className="text-slate-600 text-sm sm:text-base">
-            Select any architecture layer to inspect system telemetry, code contracts, and runtime components.
+          <p className="text-slate-400 text-sm sm:text-base">
+            Select an architecture layer to inspect core technologies, container environments, and telemetry logs.
           </p>
         </div>
 
@@ -159,22 +167,24 @@ function Skills() {
             return (
               <button
                 key={key}
+                type="button"
                 onClick={() => setActiveLayer(key)}
                 className={`arch-card relative flex flex-col items-center justify-center p-4 rounded-2xl border transition-all duration-300 font-mono text-xs text-center space-y-2 ${
                   isActive
-                    ? "border-purple-300 bg-white text-slate-900 shadow-lg shadow-purple-100 scale-[1.03]"
-                    : "border-slate-200/80 bg-white/60 text-slate-500 hover:border-purple-200 hover:text-slate-800"
+                    ? "border-indigo-500/50 bg-indigo-500/10 text-white shadow-lg shadow-indigo-500/10 scale-[1.03]"
+                    : "border-white/10 bg-slate-900/60 text-slate-400 hover:border-white/20 hover:text-slate-200"
                 }`}
               >
                 <div className="flex items-center gap-2">
                   {layer.icon}
                   <span className="font-bold tracking-wider">{key.toUpperCase()}</span>
                 </div>
-                <span className="text-[10px] text-slate-400 font-sans">Layer 0{index + 1}</span>
+                <span className="text-[10px] text-slate-500 font-sans">
+                  Layer 0{index + 1}
+                </span>
 
-                {/* Animated Pipeline Arrow */}
                 {index < 3 && (
-                  <div className="hidden md:block absolute -right-3 top-1/2 -translate-y-1/2 text-slate-300 z-20 pointer-events-none">
+                  <div className="hidden md:block absolute -right-3 top-1/2 -translate-y-1/2 text-slate-600 z-20 pointer-events-none">
                     <FiArrowRight size={14} />
                   </div>
                 )}
@@ -185,100 +195,97 @@ function Skills() {
 
         {/* MAIN DISPLAY INSPECTOR PANEL */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-          
           {/* LEFT 7 COLS: ACTIVE LAYER DETAILS & SKILLS GRID */}
-          <div className="lg:col-span-7 rounded-3xl border border-slate-200/80 bg-white/90 p-6 sm:p-8 backdrop-blur-2xl shadow-sm flex flex-col justify-between space-y-6">
-            
+          <div className="lg:col-span-7 rounded-2xl border border-white/10 bg-slate-900/80 p-6 sm:p-8 backdrop-blur-2xl shadow-xl flex flex-col justify-between space-y-6">
             <div>
-              <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-6">
+              <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-6">
                 <div>
-                  <span className="text-xs font-mono text-purple-600 font-semibold tracking-widest block mb-1">
+                  <span className="text-xs font-mono text-indigo-400 font-semibold tracking-widest block mb-1">
                     {architectureData[activeLayer].title}
                   </span>
-                  <h3 className="text-2xl font-bold text-slate-900">
+                  <h3 className="text-2xl font-bold text-white">
                     {architectureData[activeLayer].subtitle}
                   </h3>
                 </div>
-                <div className="p-3 rounded-2xl bg-purple-50 border border-purple-100 text-purple-600">
+                <div className="p-3 rounded-xl bg-slate-950 border border-white/10 text-indigo-400">
                   {architectureData[activeLayer].icon}
                 </div>
               </div>
 
-              <p className="text-slate-600 text-sm leading-relaxed mb-6 font-sans">
+              <p className="text-slate-300 text-sm leading-relaxed mb-6 font-sans">
                 {architectureData[activeLayer].description}
               </p>
 
-              {/* SKILLS CARDS GRID */}
+              {/* SKILLS GRID */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {architectureData[activeLayer].skills.map((skill, i) => (
                   <div
                     key={i}
-                    className="flex items-center gap-3 p-3.5 rounded-xl border border-slate-100 bg-slate-50/80 hover:border-purple-200 hover:bg-purple-50/30 transition-colors"
+                    className="flex items-center gap-3 p-3.5 rounded-xl border border-white/5 bg-slate-950/60 hover:border-indigo-500/40 hover:bg-indigo-500/10 transition-all"
                   >
                     <span className="text-2xl shrink-0">{skill.icon}</span>
                     <div className="overflow-hidden">
-                      <span className="block text-xs font-bold text-slate-800 truncate">{skill.name}</span>
-                      <span className="block text-[10px] font-mono text-slate-400 truncate">{skill.role}</span>
+                      <span className="block text-xs font-bold text-white truncate">
+                        {skill.name}
+                      </span>
+                      <span className="block text-[10px] font-mono text-slate-400 truncate">
+                        {skill.role}
+                      </span>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* PIPELINE INTEGRATION BADGE */}
-            <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-mono text-slate-400">
+            {/* STATUS BADGE */}
+            <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs font-mono text-slate-400">
               <span>STATUS: PRODUCTION DEPLOYED</span>
-              <span className="text-emerald-600 font-semibold flex items-center gap-1.5 text-[11px]">
-                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-emerald-400 font-semibold flex items-center gap-1.5 text-[11px]">
+                <FiCheckCircle size={13} />
                 SYSTEM OPERATIONAL
               </span>
             </div>
-
           </div>
 
-          {/* RIGHT 5 COLS: REALTIME SYSTEM LOGS TERMINAL */}
-          <div className="lg:col-span-5 rounded-3xl border border-slate-200/80 bg-slate-900 p-6 backdrop-blur-2xl flex flex-col justify-between space-y-6 font-mono shadow-md">
-            
+          {/* RIGHT 5 COLS: TERMINAL LOGS */}
+          <div className="lg:col-span-5 rounded-2xl border border-white/10 bg-slate-950 p-6 backdrop-blur-2xl flex flex-col justify-between space-y-6 font-mono shadow-2xl">
             <div>
-              {/* Terminal Title */}
-              <div className="flex items-center justify-between pb-4 border-b border-slate-800 text-xs text-slate-400 mb-4">
-                <span className="flex items-center gap-2 text-purple-400">
-                  <FiTerminal size={14} /> ARCHITECTURE_LOGS.sh
+              <div className="flex items-center justify-between pb-4 border-b border-white/10 text-xs text-slate-400 mb-4">
+                <span className="flex items-center gap-2 text-indigo-400 font-semibold">
+                  <FiTerminal size={14} /> SYSTEM_TELEMETRY.sh
                 </span>
-                <span className="text-slate-500">BASED ON PERN STACK</span>
+                <span className="text-slate-500">PERN + DOCKER</span>
               </div>
 
-              {/* Log Streams */}
               <div className="space-y-3">
-                <div className="text-[10px] text-slate-500 uppercase tracking-widest">// System Stream Out</div>
+                <div className="text-[10px] text-slate-500 uppercase tracking-widest">
+                  // Live Event Stream
+                </div>
                 {architectureData[activeLayer].terminalLogs.map((log, i) => (
-                  <div key={i} className="p-3 rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-300 leading-relaxed break-all">
-                    <span className="text-purple-400 mr-2">&gt;</span>
+                  <div
+                    key={i}
+                    className="p-3 rounded-xl border border-white/5 bg-slate-900/60 text-xs text-slate-300 leading-relaxed break-all"
+                  >
+                    <span className="text-indigo-400 mr-2">&gt;</span>
                     {log}
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* ARCHITECTURE STATS */}
-            <div className="p-4 rounded-xl border border-purple-500/20 bg-purple-950/20 space-y-2">
+            <div className="p-4 rounded-xl border border-indigo-500/20 bg-indigo-500/10 space-y-2">
               <div className="flex items-center justify-between text-xs text-slate-300">
-                <span>Code Discipline</span>
-                <span className="text-pink-300 font-bold">100% Self-Taught</span>
+                <span>Environment</span>
+                <span className="text-indigo-300 font-bold">Docker Containerized</span>
               </div>
               <div className="flex items-center justify-between text-xs text-slate-300">
-                <span>Core Focus</span>
-                <span className="text-purple-300 font-bold">High-Performance Web</span>
+                <span>Core Stack</span>
+                <span className="text-pink-300 font-bold">PERN + WebGL</span>
               </div>
             </div>
-
           </div>
-
         </div>
-
       </div>
     </section>
   );
 }
-
-export default Skills;

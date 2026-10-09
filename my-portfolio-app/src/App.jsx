@@ -1,14 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense, lazy } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import Navbar from "./Components/NavBar/NavBar";
-import Hero from "./Components/Hero/Hero";
-import About from "./Components/About/About";
-import Skills from "./Components/Skills/Skill";
-import Projects from "./Components/Projects/Projects";
-import Contact from "./Components/Contact/Contact";
+// Critical components loaded immediately (above the fold)
 import CustomLoader from "./Components/CustomLoader/CustomLoader";
+import Hero from "./Components/Hero/Hero";
+import Navbar from "./Components/NavBar/NavBar";
+
+// Lazy-loaded components (code-split into separate chunks)
+const About = lazy(() => import("./Components/About/About"));
+const Skills = lazy(() => import("./Components/Skills/Skill"));
+const Projects = lazy(() => import("./Components/Projects/Projects"));
+const Contact = lazy(() => import("./Components/Contact/Contact"));
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -30,18 +33,24 @@ function App() {
     <>
       {loading && <CustomLoader onComplete={() => setLoading(false)} />}
 
-      {/* Keep main in the DOM so GSAP can calculate layout, use opacity/pointer-events instead of unmounting */}
+      {/* Main container remains in DOM so GSAP can calculate layout metrics */}
       <main
         className={`bg-[#07060b] min-h-screen text-white transition-opacity duration-700 ${
-          loading ? "opacity-0 pointer-events-none h-0 overflow-hidden" : "opacity-100 opacity-100 pointer-events-auto"
+          loading
+            ? "opacity-0 pointer-events-none h-0 overflow-hidden"
+            : "opacity-100 pointer-events-auto"
         }`}
       >
         <Hero loading={loading} />
         <Navbar />
-        <About />
-        <Skills />
-        <Projects />
-        <Contact />
+
+        {/* Wrap non-critical sections in Suspense */}
+        <Suspense fallback={<div className="min-h-screen bg-[#07060b]" />}>
+          <About />
+          <Skills />
+          <Projects />
+          <Contact />
+        </Suspense>
       </main>
     </>
   );

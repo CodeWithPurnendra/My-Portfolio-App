@@ -54,10 +54,10 @@ Follow these steps to run the portfolio and its backend server locally on your m
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/your-portfolio-repo.git
+git clone https://github.com/CodeWithPurnendra/My-Portfolio-App.git
 ```
 ```
-cd your-portfolio-repo
+cd my-portfolio-app
 ```
 
 ### 2. Set Up the Database

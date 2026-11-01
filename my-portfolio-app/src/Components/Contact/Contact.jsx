@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import {
   FiTerminal,
   FiSend,
@@ -11,14 +11,8 @@ import {
   FiZap,
   FiAlertCircle,
 } from "react-icons/fi";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-
-gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export default function InteractiveContact({ onSendMessage }) {
-  const sectionRef = useRef(null);
   const [copied, setCopied] = useState(false);
   const [activeTab, setActiveTab] = useState("builder"); // 'builder' | 'terminal'
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -32,8 +26,7 @@ export default function InteractiveContact({ onSendMessage }) {
 
   const serviceOptions = [
     { id: "Full-Stack Web App", label: "PERN Full-Stack App", time: "2-3 Wks" },
-    { id: "3D Graphics & WebGL", label: "Three.js 3D Scene", time: "+1 Wk" },
-    { id: "GSAP & Micro-Interactions", label: "GSAP Animations", time: "+3 Days" },
+    { id: "GSAP & Micro-Interactions", label: "Animations", time: "+3 Days" },
     { id: "REST API & Backend", label: "Express API & Database", time: "+1 Wk" },
   ];
 
@@ -44,27 +37,6 @@ export default function InteractiveContact({ onSendMessage }) {
   });
 
   const emailAddress = "purnendranishad5@gmail.com";
-
-  // ENTRANCE ANIMATION
-  useGSAP(
-    () => {
-      gsap.set(".contact-anim", { opacity: 0, y: 35 });
-
-      gsap.to(".contact-anim", {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        stagger: 0.12,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 75%",
-          toggleActions: "play none none none",
-        },
-      });
-    },
-    { scope: sectionRef }
-  );
 
   const toggleService = (id) => {
     setSelectedServices((prev) =>
@@ -120,7 +92,6 @@ export default function InteractiveContact({ onSendMessage }) {
 
   return (
     <section
-      ref={sectionRef}
       id="contact"
       className="relative min-h-screen w-full overflow-hidden bg-slate-950 py-28 md:py-36 font-sans text-slate-200"
     >
@@ -130,7 +101,7 @@ export default function InteractiveContact({ onSendMessage }) {
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full z-10 space-y-12">
         {/* HEADER */}
-        <div className="contact-anim text-center max-w-3xl mx-auto">
+        <div className="text-center max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-1.5 text-xs font-semibold tracking-widest uppercase text-indigo-300 backdrop-blur-xl mb-4 shadow-sm">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75" />
@@ -153,7 +124,7 @@ export default function InteractiveContact({ onSendMessage }) {
         {/* MAIN LAYOUT */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* LEFT COLUMN: QUICK INFO & DIRECT SOCKET */}
-          <div className="contact-anim lg:col-span-4 space-y-6">
+          <div className="lg:col-span-4 space-y-6">
             {/* DIRECT EMAIL BAR */}
             <div className="rounded-2xl border border-white/10 bg-slate-900/80 p-6 backdrop-blur-2xl shadow-xl space-y-4">
               <span className="text-xs font-mono text-indigo-400 font-semibold tracking-widest uppercase block">
@@ -222,7 +193,7 @@ export default function InteractiveContact({ onSendMessage }) {
           </div>
 
           {/* RIGHT COLUMN: INTERACTIVE FORM & SCOPE BUILDER */}
-          <div className="contact-anim lg:col-span-8 rounded-2xl border border-white/10 bg-slate-900/80 p-6 sm:p-8 backdrop-blur-2xl shadow-2xl">
+          <div className="lg:col-span-8 rounded-2xl border border-white/10 bg-slate-900/80 p-6 sm:p-8 backdrop-blur-2xl shadow-2xl">
             {/* TAB SELECTOR */}
             <div className="flex items-center justify-between pb-6 border-b border-white/10 mb-6">
               <div className="flex items-center gap-2">

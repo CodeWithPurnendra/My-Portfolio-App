@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import {
   SiJavascript,
   SiReact,
@@ -17,38 +17,41 @@ import {
   FiServer,
   FiDatabase,
   FiLayers,
-  FiActivity,
   FiArrowRight,
   FiCheckCircle,
 } from "react-icons/fi";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-
-gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export default function Skills() {
-  const sectionRef = useRef(null);
   const [activeLayer, setActiveLayer] = useState("frontend");
 
   const architectureData = {
     frontend: {
       title: "01 / CLIENT TIER",
-      subtitle: "UI, Graphics & Animation Engine",
+      subtitle: "UI & Component Architecture",
       icon: <FiCpu className="text-indigo-400" size={20} />,
       description:
-        "Building interactive user interfaces using modern JavaScript (ES6+), component-driven React architecture, Tailwind CSS styling, Three.js WebGL graphics, and hardware-accelerated GSAP scroll timelines.",
+        "Building responsive, high-performance interactive user interfaces using modern JavaScript (ES6+), component-driven React architecture, and Tailwind CSS design systems.",
       skills: [
-        { name: "React.js", role: "Component State & UI Architecture", icon: <SiReact className="text-[#61DAFB]" /> },
-        { name: "JavaScript (ES6+)", role: "Async Workflows & Logic", icon: <SiJavascript className="text-[#F7DF1E]" /> },
-        { name: "Tailwind CSS", role: "Responsive Design System", icon: <SiTailwindcss className="text-[#06B6D4]" /> },
-        { name: "Three.js & GSAP", role: "3D Graphics & Micro-Animations", icon: <FiActivity className="text-pink-400" /> },
+        {
+          name: "React.js",
+          role: "Component State & UI Architecture",
+          icon: <SiReact className="text-[#61DAFB]" />,
+        },
+        {
+          name: "JavaScript (ES6+)",
+          role: "Async Workflows & Core Logic",
+          icon: <SiJavascript className="text-[#F7DF1E]" />,
+        },
+        {
+          name: "Tailwind CSS",
+          role: "Responsive Design Systems",
+          icon: <SiTailwindcss className="text-[#06B6D4]" />,
+        },
       ],
       terminalLogs: [
         "GET /api/v1/projects 200 OK - 18ms",
         "React Virtual DOM synchronized successfully",
-        "GSAP ScrollTrigger context mounted",
-        "Three.js particle canvas rendering at 60 FPS",
+        "Client layout rendered without layout shifts",
       ],
     },
     backend: {
@@ -58,10 +61,26 @@ export default function Skills() {
       description:
         "Designing asynchronous Node.js backend servers and Express.js REST API routes with clean CRUD controllers, JSON file persistence, and robust request handling.",
       skills: [
-        { name: "Node.js", role: "Asynchronous V8 Runtime", icon: <SiNodedotjs className="text-[#339933]" /> },
-        { name: "Express.js", role: "REST API Routes & Middleware", icon: <SiExpress className="text-slate-200" /> },
-        { name: "RESTful APIs", role: "JSON Endpoint Contracts", icon: <FiTerminal className="text-indigo-400" /> },
-        { name: "ES Modules & CJS", role: "Module Architecture", icon: <FiLayers className="text-purple-400" /> },
+        {
+          name: "Node.js",
+          role: "Asynchronous V8 Runtime",
+          icon: <SiNodedotjs className="text-[#339933]" />,
+        },
+        {
+          name: "Express.js",
+          role: "REST API Routes & Middleware",
+          icon: <SiExpress className="text-slate-200" />,
+        },
+        {
+          name: "RESTful APIs",
+          role: "JSON Endpoint Contracts",
+          icon: <FiTerminal className="text-indigo-400" />,
+        },
+        {
+          name: "ES Modules & CJS",
+          role: "Module Architecture",
+          icon: <FiLayers className="text-purple-400" />,
+        },
       ],
       terminalLogs: [
         "POST /api/v1/contact - Message payload received",
@@ -76,9 +95,21 @@ export default function Skills() {
       description:
         "Structuring relational data models, writing optimized SQL queries, and executing secure CRUD operations using PostgreSQL.",
       skills: [
-        { name: "PostgreSQL", role: "Relational SQL Database", icon: <SiPostgresql className="text-[#4169E1]" /> },
-        { name: "SQL Queries", role: "Relational Schema Design", icon: <FiDatabase className="text-purple-400" /> },
-        { name: "JSON Data Persistence", role: "Local File System CRUD", icon: <FiTerminal className="text-indigo-400" /> },
+        {
+          name: "PostgreSQL",
+          role: "Relational SQL Database",
+          icon: <SiPostgresql className="text-[#4169E1]" />,
+        },
+        {
+          name: "SQL Queries",
+          role: "Relational Schema Design",
+          icon: <FiDatabase className="text-purple-400" />,
+        },
+        {
+          name: "JSON Data Persistence",
+          role: "Local File System CRUD",
+          icon: <FiTerminal className="text-indigo-400" />,
+        },
       ],
       terminalLogs: [
         "SELECT * FROM projects ORDER BY created_at DESC;",
@@ -93,10 +124,26 @@ export default function Skills() {
       description:
         "Containerizing application environments with Docker, managing Linux shell executions, tracking changes via Git, and prototyping UI interfaces in Figma.",
       skills: [
-        { name: "Docker", role: "Containerization & Runtime Isolation", icon: <SiDocker className="text-[#2496ED]" /> },
-        { name: "Git & GitHub", role: "Version Control Systems", icon: <SiGit className="text-[#F05032]" /> },
-        { name: "Linux / Bash", role: "Terminal & Shell Execution", icon: <SiLinux className="text-[#FCC624]" /> },
-        { name: "Figma", role: "UI Prototyping & Layouts", icon: <SiFigma className="text-[#F24E1E]" /> },
+        {
+          name: "Docker",
+          role: "Containerization & Runtime Isolation",
+          icon: <SiDocker className="text-[#2496ED]" />,
+        },
+        {
+          name: "Git & GitHub",
+          role: "Version Control Systems",
+          icon: <SiGit className="text-[#F05032]" />,
+        },
+        {
+          name: "Linux / Bash",
+          role: "Terminal & Shell Execution",
+          icon: <SiLinux className="text-[#FCC624]" />,
+        },
+        {
+          name: "Figma",
+          role: "UI Prototyping & Layouts",
+          icon: <SiFigma className="text-[#F24E1E]" />,
+        },
       ],
       terminalLogs: [
         "docker-compose up -d --build",
@@ -106,29 +153,8 @@ export default function Skills() {
     },
   };
 
-  useGSAP(
-    () => {
-      gsap.set(".arch-card", { opacity: 0, y: 30 });
-
-      gsap.to(".arch-card", {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        stagger: 0.12,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 80%",
-          toggleActions: "play none none none",
-        },
-      });
-    },
-    { scope: sectionRef }
-  );
-
   return (
     <section
-      ref={sectionRef}
       id="skills"
       className="relative min-h-screen w-full overflow-hidden bg-slate-950 py-28 md:py-36 flex items-center justify-center font-sans text-slate-200"
     >
@@ -169,7 +195,7 @@ export default function Skills() {
                 key={key}
                 type="button"
                 onClick={() => setActiveLayer(key)}
-                className={`arch-card relative flex flex-col items-center justify-center p-4 rounded-2xl border transition-all duration-300 font-mono text-xs text-center space-y-2 ${
+                className={`relative flex flex-col items-center justify-center p-4 rounded-2xl border transition-all duration-300 font-mono text-xs text-center space-y-2 ${
                   isActive
                     ? "border-indigo-500/50 bg-indigo-500/10 text-white shadow-lg shadow-indigo-500/10 scale-[1.03]"
                     : "border-white/10 bg-slate-900/60 text-slate-400 hover:border-white/20 hover:text-slate-200"
@@ -280,7 +306,7 @@ export default function Skills() {
               </div>
               <div className="flex items-center justify-between text-xs text-slate-300">
                 <span>Core Stack</span>
-                <span className="text-pink-300 font-bold">PERN + WebGL</span>
+                <span className="text-pink-300 font-bold">PERN Architecture</span>
               </div>
             </div>
           </div>

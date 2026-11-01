@@ -4,7 +4,6 @@ import {
   FiGithub,
   FiLinkedin,
   FiMail,
-  FiDownload,
   FiTerminal,
   FiCpu,
   FiLayers,
@@ -215,14 +214,6 @@ export default function Hero({ loading = false, isBackendConnected = false }) {
                 <span>Explore Projects</span>
                 <FiArrowRight size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
               </a>
-
-              <a
-                href="#contact"
-                className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-7 py-3.5 text-sm font-semibold text-slate-200 shadow-sm backdrop-blur-md transition-all duration-300 hover:border-white/20 hover:bg-white/10 hover:text-white"
-              >
-                <FiDownload size={16} />
-                <span>Get Resume</span>
-              </a>
             </div>
 
             {/* SOCIAL LINKS */}
@@ -300,13 +291,13 @@ export default function Hero({ loading = false, isBackendConnected = false }) {
               <div className="grid grid-cols-3 gap-3 text-center">
                 <div className="rounded-xl border border-white/5 bg-white/5 p-3">
                   <FiCpu className="mx-auto text-indigo-400 mb-1" size={16} />
-                  <span className="block text-lg font-bold text-white">2+</span>
-                  <span className="text-[10px] uppercase font-mono text-slate-400 tracking-wider">Years Exp</span>
+                  <span className="block text-lg font-bold text-white">PERN</span>
+                  <span className="text-[10px] uppercase font-mono text-slate-400 tracking-wider">Core Stack</span>
                 </div>
                 <div className="rounded-xl border border-white/5 bg-white/5 p-3">
                   <FiLayers className="mx-auto text-pink-400 mb-1" size={16} />
-                  <span className="block text-lg font-bold text-white">15+</span>
-                  <span className="text-[10px] uppercase font-mono text-slate-400 tracking-wider">Projects</span>
+                  <span className="block text-lg font-bold text-white">3</span>
+                  <span className="text-[10px] uppercase font-mono text-slate-400 tracking-wider">Live Projects</span>
                 </div>
                 <div className="rounded-xl border border-white/5 bg-white/5 p-3">
                   <span className="block text-lg font-bold text-emerald-400 mt-5">100%</span>

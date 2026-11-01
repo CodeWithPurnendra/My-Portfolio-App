@@ -1,4 +1,4 @@
-# Full-Stack PERN Portfolio & Interactive Workspace
+# Full-Stack PERN Portfolio & Interactive Workspace.
 
 > A high-performance, modern developer portfolio built from scratch using the **PERN stack**, featuring immersive 3D web graphics, scroll-driven GSAP animations, and a secure backend API that persists visitor messages directly into PostgreSQL.
 

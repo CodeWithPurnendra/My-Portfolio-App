@@ -65,15 +65,8 @@ export default function InteractiveContact({ onSendMessage }) {
       if (onSendMessage) {
         await onSendMessage(payload);
       } else {
-        // Send POST request to Express backend
-        const response = await fetch("http://localhost:5000/api/contact", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        });
-
+         const API_URL = import.meta.env.VITE_APP_URL || "http://localhost:5000";
+         const response = await fetch (`${API_URL}/api/contact`,{})
         const data = await response.json();
 
         if (!response.ok) {

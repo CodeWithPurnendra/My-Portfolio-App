@@ -26,7 +26,6 @@ export default function InteractiveContact({ onSendMessage }) {
 
   const serviceOptions = [
     { id: "Full-Stack Web App", label: "PERN Full-Stack App", time: "2-3 Wks" },
-    { id: "GSAP & Micro-Interactions", label: "Animations", time: "+3 Days" },
     { id: "REST API & Backend", label: "Express API & Database", time: "+1 Wk" },
   ];
 

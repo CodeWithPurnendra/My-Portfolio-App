@@ -11,9 +11,9 @@ import {
   FiZap,
   FiAlertCircle,
 } from "react-icons/fi";
-import ContactLoader from "../Loader/Loader";
+import Loader from "../Loader/Loader";
 
-export default function InteractiveContact({ onSendMessage }) {
+export default function Contact({ onSendMessage }) {
   const [copied, setCopied] = useState(false);
   const [activeTab, setActiveTab] = useState("builder"); // 'builder' | 'terminal'
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -54,6 +54,8 @@ export default function InteractiveContact({ onSendMessage }) {
   // HANDLER CONNECTED TO EXPRESS ENDPOINT
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isSubmitting) return;
+
     setIsSubmitting(true);
     setErrorMessage("");
 
@@ -183,9 +185,10 @@ export default function InteractiveContact({ onSendMessage }) {
                   <FiTerminal size={12} /> SCOPE_PARSER
                 </span>
                 <span
-                  className={`font-semibold ${
-                    isSubmitting ? "text-amber-400 animate-pulse" : "text-emerald-400"
-                  }`}
+                  className={`font-semibold ${isSubmitting
+                    ? "text-amber-400 animate-pulse"
+                    : "text-emerald-400"
+                    }`}
                 >
                   {isSubmitting ? "TRANSMITTING" : "ONLINE"}
                 </span>
@@ -201,7 +204,7 @@ export default function InteractiveContact({ onSendMessage }) {
                   <span className="text-indigo-400">&gt;</span> Pipeline Status:{" "}
                   <span className="text-indigo-300">
                     {isSubmitting
-                      ? "Awaiting backend acknowledgement..."
+                      ? "Awaiting server response..."
                       : "Ready for payload transmission"}
                   </span>
                 </p>
@@ -218,11 +221,10 @@ export default function InteractiveContact({ onSendMessage }) {
                   type="button"
                   disabled={isSubmitting}
                   onClick={() => setActiveTab("builder")}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all disabled:opacity-50 ${
-                    activeTab === "builder"
-                      ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/30"
-                      : "bg-white/5 text-slate-400 hover:text-white"
-                  }`}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all disabled:opacity-50 ${activeTab === "builder"
+                    ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/30"
+                    : "bg-white/5 text-slate-400 hover:text-white"
+                    }`}
                 >
                   <FiSliders size={14} /> Interactive Scope Builder
                 </button>
@@ -230,11 +232,10 @@ export default function InteractiveContact({ onSendMessage }) {
                   type="button"
                   disabled={isSubmitting}
                   onClick={() => setActiveTab("terminal")}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all disabled:opacity-50 ${
-                    activeTab === "terminal"
-                      ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/30"
-                      : "bg-white/5 text-slate-400 hover:text-white"
-                  }`}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all disabled:opacity-50 ${activeTab === "terminal"
+                    ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/30"
+                    : "bg-white/5 text-slate-400 hover:text-white"
+                    }`}
                 >
                   <FiTerminal size={14} /> Terminal Mode
                 </button>
@@ -283,11 +284,10 @@ export default function InteractiveContact({ onSendMessage }) {
                           type="button"
                           disabled={isSubmitting}
                           onClick={() => toggleService(opt.id)}
-                          className={`flex items-center justify-between p-3.5 rounded-xl border text-left text-xs font-medium transition-all disabled:opacity-60 ${
-                            isSelected
-                              ? "border-indigo-500 bg-indigo-500/10 text-white"
-                              : "border-white/5 bg-slate-950/40 text-slate-400 hover:border-white/20 hover:text-slate-200"
-                          }`}
+                          className={`flex items-center justify-between p-3.5 rounded-xl border text-left text-xs font-medium transition-all disabled:opacity-60 ${isSelected
+                            ? "border-indigo-500 bg-indigo-500/10 text-white"
+                            : "border-white/5 bg-slate-950/40 text-slate-400 hover:border-white/20 hover:text-slate-200"
+                            }`}
                         >
                           <span className="flex items-center gap-2">
                             <FiZap
@@ -360,8 +360,8 @@ export default function InteractiveContact({ onSendMessage }) {
                   />
                 </div>
 
-                {/* FREE-TIER BACKEND COLD-START LOADER */}
-                <ContactLoader isSubmitting={isSubmitting} />
+                {/* LOADER APPEARS ON SUBMIT BUTTON CLICK */}
+                <Loader isSubmitting={isSubmitting} />
 
                 {/* ERROR BANNER */}
                 {errorMessage && (
@@ -378,8 +378,8 @@ export default function InteractiveContact({ onSendMessage }) {
                 >
                   {isSubmitting ? (
                     <span className="flex items-center gap-2">
-                      <span className="h-3 w-3 rounded-full border-2 border-white border-t-transparent animate-spin" />
-                      TRANSMITTING...
+                      <span className="h-3.5 w-3.5 rounded-full border-2 border-white border-t-transparent animate-spin" />
+                      TRANSMITTING SCOPE...
                     </span>
                   ) : (
                     <span className="flex items-center gap-2">
@@ -411,8 +411,8 @@ export default function InteractiveContact({ onSendMessage }) {
                   </span>
                 </p>
 
-                {/* FREE-TIER BACKEND COLD-START LOADER */}
-                <ContactLoader isSubmitting={isSubmitting} />
+                {/* LOADER APPEARS ON EXECUTE BUTTON CLICK */}
+                <Loader isSubmitting={isSubmitting} />
 
                 {/* ERROR BANNER IN TERMINAL MODE */}
                 {errorMessage && (
@@ -433,9 +433,7 @@ export default function InteractiveContact({ onSendMessage }) {
                   }
                   className="mt-4 w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                 >
-                  {isSubmitting
-                    ? "Executing Request..."
-                    : "Execute Request (POST)"}
+                  {isSubmitting ? "Executing Request..." : "Execute Request (POST)"}
                 </button>
               </div>
             )}

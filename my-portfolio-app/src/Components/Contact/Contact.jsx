@@ -11,6 +11,7 @@ import {
   FiZap,
   FiAlertCircle,
 } from "react-icons/fi";
+import ContactLoader from "../Loader/Loader";
 
 export default function InteractiveContact({ onSendMessage }) {
   const [copied, setCopied] = useState(false);
@@ -36,6 +37,7 @@ export default function InteractiveContact({ onSendMessage }) {
   });
 
   const emailAddress = "purnendranishad5@gmail.com";
+  const API_URL = import.meta.env.VITE_APP_URL || "http://localhost:5000";
 
   const toggleService = (id) => {
     setSelectedServices((prev) =>
@@ -64,8 +66,14 @@ export default function InteractiveContact({ onSendMessage }) {
       if (onSendMessage) {
         await onSendMessage(payload);
       } else {
-         const API_URL = import.meta.env.VITE_APP_URL || "http://localhost:5000";
-         const response = await fetch (`${API_URL}/api/contact`,{})
+        const response = await fetch(`${API_URL}/api/contact`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        });
+
         const data = await response.json();
 
         if (!response.ok) {
@@ -76,7 +84,9 @@ export default function InteractiveContact({ onSendMessage }) {
       setSubmitted(true);
       setFormData({ name: "", email: "", message: "" });
     } catch (err) {
-      setErrorMessage(err.message || "Server connection error. Is Express running?");
+      setErrorMessage(
+        err.message || "Server connection error. Is Express running?"
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -109,7 +119,8 @@ export default function InteractiveContact({ onSendMessage }) {
             </span>
           </h2>
           <p className="text-slate-400 text-sm sm:text-base">
-            Select your project requirements below to compute scope estimates, or send a direct transmission to my inbox.
+            Select your project requirements below to compute scope estimates, or
+            send a direct transmission to my inbox.
           </p>
         </div>
 
@@ -150,13 +161,17 @@ export default function InteractiveContact({ onSendMessage }) {
                   <span className="text-slate-400 text-[10px] uppercase flex items-center gap-1 font-semibold">
                     <FiMapPin size={10} className="text-indigo-400" /> Location
                   </span>
-                  <span className="text-slate-200 font-sans font-medium block">Remote / Global</span>
+                  <span className="text-slate-200 font-sans font-medium block">
+                    Remote / Global
+                  </span>
                 </div>
                 <div className="p-3 rounded-xl bg-slate-950/50 border border-white/5 space-y-1">
                   <span className="text-slate-400 text-[10px] uppercase flex items-center gap-1 font-semibold">
                     <FiClock size={10} className="text-pink-400" /> Response Time
                   </span>
-                  <span className="text-emerald-400 font-sans font-semibold block">&lt; 12 Hours</span>
+                  <span className="text-emerald-400 font-sans font-semibold block">
+                    &lt; 12 Hours
+                  </span>
                 </div>
               </div>
             </div>
@@ -167,7 +182,13 @@ export default function InteractiveContact({ onSendMessage }) {
                 <span className="flex items-center gap-1.5 text-indigo-400 font-semibold">
                   <FiTerminal size={12} /> SCOPE_PARSER
                 </span>
-                <span className="text-emerald-400 font-semibold">ONLINE</span>
+                <span
+                  className={`font-semibold ${
+                    isSubmitting ? "text-amber-400 animate-pulse" : "text-emerald-400"
+                  }`}
+                >
+                  {isSubmitting ? "TRANSMITTING" : "ONLINE"}
+                </span>
               </div>
               <div className="space-y-1.5 text-[11px] text-slate-300">
                 <p>
@@ -178,7 +199,11 @@ export default function InteractiveContact({ onSendMessage }) {
                 </p>
                 <p>
                   <span className="text-indigo-400">&gt;</span> Pipeline Status:{" "}
-                  <span className="text-indigo-300">Ready for payload transmission</span>
+                  <span className="text-indigo-300">
+                    {isSubmitting
+                      ? "Awaiting backend acknowledgement..."
+                      : "Ready for payload transmission"}
+                  </span>
                 </p>
               </div>
             </div>
@@ -191,8 +216,9 @@ export default function InteractiveContact({ onSendMessage }) {
               <div className="flex items-center gap-2">
                 <button
                   type="button"
+                  disabled={isSubmitting}
                   onClick={() => setActiveTab("builder")}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all ${
+                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all disabled:opacity-50 ${
                     activeTab === "builder"
                       ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/30"
                       : "bg-white/5 text-slate-400 hover:text-white"
@@ -202,8 +228,9 @@ export default function InteractiveContact({ onSendMessage }) {
                 </button>
                 <button
                   type="button"
+                  disabled={isSubmitting}
                   onClick={() => setActiveTab("terminal")}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all ${
+                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all disabled:opacity-50 ${
                     activeTab === "terminal"
                       ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/30"
                       : "bg-white/5 text-slate-400 hover:text-white"
@@ -227,7 +254,9 @@ export default function InteractiveContact({ onSendMessage }) {
                   Scope Transmitted Successfully
                 </h3>
                 <p className="text-xs text-slate-400 max-w-md mx-auto">
-                  Thank you! Your project specification and contact request have been dispatched. I will review your requirements and reach out within 12 hours.
+                  Thank you! Your project specification and contact request have
+                  been dispatched. I will review your requirements and reach out
+                  within 12 hours.
                 </p>
                 <button
                   type="button"
@@ -252,8 +281,9 @@ export default function InteractiveContact({ onSendMessage }) {
                         <button
                           key={opt.id}
                           type="button"
+                          disabled={isSubmitting}
                           onClick={() => toggleService(opt.id)}
-                          className={`flex items-center justify-between p-3.5 rounded-xl border text-left text-xs font-medium transition-all ${
+                          className={`flex items-center justify-between p-3.5 rounded-xl border text-left text-xs font-medium transition-all disabled:opacity-60 ${
                             isSelected
                               ? "border-indigo-500 bg-indigo-500/10 text-white"
                               : "border-white/5 bg-slate-950/40 text-slate-400 hover:border-white/20 hover:text-slate-200"
@@ -261,7 +291,9 @@ export default function InteractiveContact({ onSendMessage }) {
                         >
                           <span className="flex items-center gap-2">
                             <FiZap
-                              className={isSelected ? "text-indigo-400" : "text-slate-500"}
+                              className={
+                                isSelected ? "text-indigo-400" : "text-slate-500"
+                              }
                             />
                             {opt.label}
                           </span>
@@ -277,30 +309,36 @@ export default function InteractiveContact({ onSendMessage }) {
                 {/* INPUT FIELDS */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                   <div className="space-y-1.5 font-mono text-xs">
-                    <label className="text-slate-400 font-medium block">Name</label>
+                    <label className="text-slate-400 font-medium block">
+                      Name
+                    </label>
                     <input
                       type="text"
                       required
+                      disabled={isSubmitting}
                       placeholder="Jane Doe"
                       value={formData.name}
                       onChange={(e) =>
                         setFormData({ ...formData, name: e.target.value })
                       }
-                      className="w-full px-4 py-3 rounded-xl bg-slate-950/60 border border-white/10 text-white placeholder-slate-500 focus:border-indigo-500 focus:outline-none transition-all font-sans"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-950/60 border border-white/10 text-white placeholder-slate-500 focus:border-indigo-500 focus:outline-none transition-all font-sans disabled:opacity-60"
                     />
                   </div>
 
                   <div className="space-y-1.5 font-mono text-xs">
-                    <label className="text-slate-400 font-medium block">Email</label>
+                    <label className="text-slate-400 font-medium block">
+                      Email
+                    </label>
                     <input
                       type="email"
                       required
+                      disabled={isSubmitting}
                       placeholder="jane@company.com"
                       value={formData.email}
                       onChange={(e) =>
                         setFormData({ ...formData, email: e.target.value })
                       }
-                      className="w-full px-4 py-3 rounded-xl bg-slate-950/60 border border-white/10 text-white placeholder-slate-500 focus:border-indigo-500 focus:outline-none transition-all font-sans"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-950/60 border border-white/10 text-white placeholder-slate-500 focus:border-indigo-500 focus:outline-none transition-all font-sans disabled:opacity-60"
                     />
                   </div>
                 </div>
@@ -312,14 +350,18 @@ export default function InteractiveContact({ onSendMessage }) {
                   <textarea
                     rows={3}
                     required
+                    disabled={isSubmitting}
                     placeholder="Outline your project goals, features, or engineering requirements..."
                     value={formData.message}
                     onChange={(e) =>
                       setFormData({ ...formData, message: e.target.value })
                     }
-                    className="w-full px-4 py-3 rounded-xl bg-slate-950/60 border border-white/10 text-white placeholder-slate-500 focus:border-indigo-500 focus:outline-none transition-all font-sans resize-none"
+                    className="w-full px-4 py-3 rounded-xl bg-slate-950/60 border border-white/10 text-white placeholder-slate-500 focus:border-indigo-500 focus:outline-none transition-all font-sans resize-none disabled:opacity-60"
                   />
                 </div>
+
+                {/* FREE-TIER BACKEND COLD-START LOADER */}
+                <ContactLoader isSubmitting={isSubmitting} />
 
                 {/* ERROR BANNER */}
                 {errorMessage && (
@@ -332,12 +374,12 @@ export default function InteractiveContact({ onSendMessage }) {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-3.5 px-6 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-mono font-bold transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/30 disabled:opacity-50 active:scale-[0.99]"
+                  className="w-full py-3.5 px-6 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-mono font-bold transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/30 disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.99]"
                 >
                   {isSubmitting ? (
                     <span className="flex items-center gap-2">
                       <span className="h-3 w-3 rounded-full border-2 border-white border-t-transparent animate-spin" />
-                      DISPATCHING PAYLOAD...
+                      TRANSMITTING...
                     </span>
                   ) : (
                     <span className="flex items-center gap-2">
@@ -349,16 +391,28 @@ export default function InteractiveContact({ onSendMessage }) {
             ) : (
               /* CLI / TERMINAL MODE */
               <div className="rounded-xl bg-slate-950 p-5 border border-white/10 font-mono text-xs space-y-3">
-                <p className="text-slate-400">// Interactive CLI Transmission Protocol</p>
-                <p className="text-indigo-400">
-                  $ curl -X POST http://localhost:5000/api/contact \
+                <p className="text-slate-400">
+                  // Interactive CLI Transmission Protocol
+                </p>
+                <p className="text-indigo-400 break-all">
+                  $ curl -X POST {API_URL}/api/contact \
                 </p>
                 <p className="pl-4 text-slate-300">
-                  -H <span className="text-emerald-400">"Content-Type: application/json"</span> \
+                  -H{" "}
+                  <span className="text-emerald-400">
+                    "Content-Type: application/json"
+                  </span>{" "}
+                  \
                 </p>
-                <p className="pl-4 text-slate-300">
-                  -d <span className="text-amber-300">'{JSON.stringify(formData)}'</span>
+                <p className="pl-4 text-slate-300 break-all">
+                  -d{" "}
+                  <span className="text-amber-300">
+                    '{JSON.stringify({ ...formData, services: selectedServices })}'
+                  </span>
                 </p>
+
+                {/* FREE-TIER BACKEND COLD-START LOADER */}
+                <ContactLoader isSubmitting={isSubmitting} />
 
                 {/* ERROR BANNER IN TERMINAL MODE */}
                 {errorMessage && (
@@ -371,10 +425,17 @@ export default function InteractiveContact({ onSendMessage }) {
                 <button
                   type="button"
                   onClick={handleSubmit}
-                  disabled={isSubmitting || !formData.name || !formData.email || !formData.message}
-                  className="mt-4 w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition-all disabled:opacity-40"
+                  disabled={
+                    isSubmitting ||
+                    !formData.name ||
+                    !formData.email ||
+                    !formData.message
+                  }
+                  className="mt-4 w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                 >
-                  Execute Request (POST)
+                  {isSubmitting
+                    ? "Executing Request..."
+                    : "Execute Request (POST)"}
                 </button>
               </div>
             )}
